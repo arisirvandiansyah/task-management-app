@@ -38,3 +38,16 @@ exports.update = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+
+exports.remove = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const task = await Task.findById(id);
+    if (!task) return res.status(404).json({ msg: "Task not found" });
+    if (task.assigned_to != req.user._id) return res.sendStatus(400);
+    await Task.findByIdAndDelete(id);
+    return res.status(200).json({ msg: "Task deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
