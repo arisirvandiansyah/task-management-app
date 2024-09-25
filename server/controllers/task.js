@@ -19,3 +19,22 @@ exports.store = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+
+exports.update = async (req, res) => {
+  const { name, description, deadline, status } = req.body;
+  if (!name || !description || !deadline)
+    return res.status(400).json({ msg: "Please fill all fields" });
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) return res.status(404).json({ msg: "Task not found" });
+    if (task.assigned_to != req.user._id) return res.sendStatus(400);
+    task.name = name;
+    task.description = description;
+    task.deadline = deadline;
+    task.status = status;
+    await task.save();
+    return res.status(200).json({ msg: "Task updated successfully" });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
