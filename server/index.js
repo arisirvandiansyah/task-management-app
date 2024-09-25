@@ -10,6 +10,8 @@ app.use(express.json());
 app.use(cookieParser());
 connectDB();
 
+app.use("/api/auth", require("./routes/auth"));
+
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
