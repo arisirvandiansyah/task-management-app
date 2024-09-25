@@ -28,6 +28,18 @@ exports.getAll = async (req, res) => {
     return res.status(500).send({ msg: error.message });
   }
 };
+
+exports.getOne = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const task = await Task.findById(id, "-__v");
+    if (!task) return res.status(404).json({ msg: "Task not found" });
+    if (task.assigned_to != req.user._id) return res.sendStatus(400);
+    return res.status(200).send(task);
+  } catch (error) {
+    return res.status(500).send({ msg: error.message });
+  }
+};
 exports.store = async (req, res) => {
   let { name, description, deadline, assigned_to } = req.body;
   if (!name || !description || !deadline)
