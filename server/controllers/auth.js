@@ -65,3 +65,22 @@ exports.login = async (req, res) => {
     return res.sendStatus(500).send({ msg: error });
   }
 };
+
+exports.logout = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) return res.sendStatus(204);
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const user = await User.findOne({ _id: decoded._id });
+    if (!user) {
+      res.clearCookie("refreshToken");
+      return res.sendStatus(204);
+    }
+    user.tokens = user.tokens.filter((token) => token.token !== refreshToken);
+    await user.save();
+    res.clearCookie("refreshToken");
+    return res.status(200).send({ msg: "Logout successfully" });
+  } catch (error) {
+    return res.status(500).send({ msg: error.message });
+  }
+};
