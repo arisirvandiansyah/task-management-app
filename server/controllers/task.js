@@ -1,4 +1,33 @@
 const Task = require("../models/task");
+
+exports.getAll = async (req, res) => {
+  try {
+    const tasks = await Task.find(
+      { assigned_to: req.user._id },
+      "-assigned_to -__v"
+    );
+    if (!tasks) return res.status(404).send({ msg: "No tasks found" });
+    const pending = tasks.filter((task) => task.status == "Pending").length;
+    const inProgress = tasks.filter(
+      (task) => task.status == "In-progress"
+    ).length;
+    const waiting = tasks.filter((task) => task.status == "Waiting").length;
+    const rejected = tasks.filter((task) => task.status == "Rejected").length;
+    const completed = tasks.filter((task) => task.status == "Completed").length;
+    return res.status(200).send({
+      tasks: tasks,
+      count: {
+        pending,
+        inProgress,
+        waiting,
+        rejected,
+        completed,
+      },
+    });
+  } catch (error) {
+    return res.status(500).send({ msg: error.message });
+  }
+};
 exports.store = async (req, res) => {
   let { name, description, deadline, assigned_to } = req.body;
   if (!name || !description || !deadline)
