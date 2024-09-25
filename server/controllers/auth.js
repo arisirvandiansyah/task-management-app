@@ -1,6 +1,27 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+exports.token = async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) return res.sendStatus(401);
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const payload = {
+      _id: decoded._id,
+      name: decoded.name,
+      email: decoded.email,
+      is_manager: decoded.is_manager,
+    };
+    const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "20s",
+    });
+    return res.send({ accessToken });
+  } catch (error) {
+    return res.status(500).send({ msg: error.message });
+  }
+};
+
 exports.register = async (req, res) => {
   const { name, email, password, is_manager } = req.body;
   if (!name || !email || !password) {
