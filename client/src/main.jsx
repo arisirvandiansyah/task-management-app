@@ -5,13 +5,14 @@ import App from "./App.jsx";
 import "./index.css";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
+import Layout from "./pages/dashboard/Layout.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<Layout />} />
     </Routes>
   </BrowserRouter>
 );
