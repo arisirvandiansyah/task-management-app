@@ -1,12 +1,34 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import {
   IoReorderThreeOutline,
   IoClose,
   IoLogOutOutline,
 } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const Layout = ({ children }) => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [loginInfo, setLoginInfo] = useState("");
+
+  const getLoginInfo = async () => {
+    await axios
+      .get(`${import.meta.env.VITE_SERVER_URL}/auth/token`, {
+        withCredentials: true,
+        credentials: "include",
+      })
+      .then((res) => {
+        const token = res.data.accessToken;
+        const decoded = jwtDecode(token);
+        setLoginInfo(decoded);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        navigate("/login");
+      });
+  };
 
   const navActive = () => {
     const segment = window.location.pathname;
@@ -17,6 +39,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     navActive();
+    getLoginInfo();
   }, []);
   return (
     <>
@@ -32,7 +55,7 @@ const Layout = ({ children }) => {
           >
             <IoReorderThreeOutline />
           </button>
-          <span>Name</span>
+          <span>{loginInfo?.name}</span>
         </div>
       </header>
       <aside
@@ -89,7 +112,7 @@ const Layout = ({ children }) => {
           sidebarOpen ? "lg:ml-56 ml-0" : "ml-0"
         } transition-all duration-300`}
       >
-        {children}
+        {children({ loginInfo })}
       </main>
     </>
   );
