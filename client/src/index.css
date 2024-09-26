@@ -19,7 +19,7 @@ label {
 input:not([type="checkbox"]),
 select,
 textarea {
-  @apply p-2 rounded border border-neutral-300 w-full;
+  @apply p-2 rounded bg-white border border-neutral-300 w-full;
 }
 
 input:focus,

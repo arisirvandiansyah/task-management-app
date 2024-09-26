@@ -6,6 +6,7 @@ import "./index.css";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import CreateTask from "./pages/dashboard/CreateTask.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
+      <Route path="/tasks/create" element={<CreateTask />} />
     </Routes>
   </BrowserRouter>
 );
