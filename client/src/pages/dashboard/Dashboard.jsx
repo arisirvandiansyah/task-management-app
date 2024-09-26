@@ -79,9 +79,7 @@ const Dashboard = () => {
 
         useEffect(() => {
           getTask();
-          if (loginInfo.is_manager) {
-            getEmployee();
-          }
+          getEmployee();
         }, []);
 
         return (

@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const Layout = ({ children }) => {
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [loginInfo, setLoginInfo] = useState("");
+  const [loginInfo, setLoginInfo] = useState({});
 
   const getLoginInfo = async () => {
     await axios
@@ -41,6 +41,7 @@ const Layout = ({ children }) => {
     navActive();
     getLoginInfo();
   }, []);
+
   return (
     <>
       <header
