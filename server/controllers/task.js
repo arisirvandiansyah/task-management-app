@@ -32,9 +32,16 @@ exports.getAll = async (req, res) => {
 exports.getOne = async (req, res) => {
   const id = req.params.id;
   try {
-    const task = await Task.findById(id, "-__v");
+    const task = await Task.findById(id, "-__v")
+      .populate("assigned_to")
+      .populate("assigned_by")
+      .exec();
     if (!task) return res.status(404).json({ msg: "Task not found" });
-    if (task.assigned_to != req.user._id) return res.sendStatus(400);
+    if (
+      task.assigned_to._id != req.user._id ||
+      task.assigned_by._id != req.user._id
+    )
+      return res.sendStatus(400);
     return res.status(200).send(task);
   } catch (error) {
     return res.status(500).send({ msg: error.message });
