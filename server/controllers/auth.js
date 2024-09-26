@@ -83,7 +83,7 @@ exports.login = async (req, res) => {
       .status(200)
       .send({ msg: "Login successfully, please wait", accessToken });
   } catch (error) {
-    return res.sendStatus(500).send({ msg: error });
+    return res.sendStatus(500).send({ msg: error.message });
   }
 };
 
