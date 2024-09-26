@@ -2,10 +2,18 @@ const Task = require("../models/task");
 
 exports.getAll = async (req, res) => {
   try {
-    const tasks = await Task.find(
-      { assigned_to: req.user._id },
-      "-assigned_to -__v"
-    );
+    let tasks = [];
+    if (!req.user.is_manager) {
+      tasks = await Task.find({ assigned_to: req.user._id }, " -__v")
+        .populate("assigned_by")
+        .populate("assigned_to")
+        .exec();
+    } else {
+      tasks = await Task.find({ assigned_by: req.user._id }, "-__v")
+        .populate("assigned_by")
+        .populate("assigned_to")
+        .exec();
+    }
     if (!tasks) return res.status(404).send({ msg: "No tasks found" });
     const pending = tasks.filter((task) => task.status == "Pending").length;
     const inProgress = tasks.filter(
@@ -69,7 +77,7 @@ exports.store = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { name, description, deadline, status } = req.body;
+  const { name, description, deadline, assigned_to, status } = req.body;
   if (!name || !description || !deadline)
     return res.status(400).json({ msg: "Please fill all fields" });
   try {
@@ -79,6 +87,7 @@ exports.update = async (req, res) => {
     task.name = name;
     task.description = description;
     task.deadline = deadline;
+    task.assigned_to = assigned_to;
     task.status = status;
     await task.save();
     return res.status(200).json({ msg: "Task updated successfully" });
