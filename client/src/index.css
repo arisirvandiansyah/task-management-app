@@ -44,3 +44,16 @@ body {
   @apply bg-neutral-100 text-neutral-700 font-light lg:text-sm text-xs;
   font-family: "Poppins", sans-serif;
 }
+
+tr {
+  @apply border-b last:border-b-0 border-neutral-300;
+}
+
+thead {
+  @apply font-semibold p-2 bg-teal-500 text-white rounded;
+}
+
+th,
+td {
+  @apply p-3;
+}
