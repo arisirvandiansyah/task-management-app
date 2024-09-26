@@ -45,11 +45,8 @@ exports.getOne = async (req, res) => {
       .populate("assigned_by")
       .exec();
     if (!task) return res.status(404).json({ msg: "Task not found" });
-    if (
-      task.assigned_to._id != req.user._id ||
-      task.assigned_by._id != req.user._id
-    )
-      return res.sendStatus(400);
+    if (!req.user.is_manager && task.assigned_to != req.user._id)
+      return res.sendStatus(403);
     return res.status(200).send(task);
   } catch (error) {
     return res.status(500).send({ msg: error.message });
@@ -83,7 +80,8 @@ exports.update = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ msg: "Task not found" });
-    if (task.assigned_to != req.user._id) return res.sendStatus(400);
+    if (!req.user.is_manager && task.assigned_to != req.user._id)
+      return res.sendStatus(400);
     task.name = name;
     task.description = description;
     task.deadline = deadline;
