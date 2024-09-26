@@ -1,3 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  @apply box-border p-0 m-0;
+}
+
+h1 {
+  @apply lg:text-3xl text-xl font-semibold text-teal-500;
+}
+
+label {
+  @apply block font-medium;
+}
+
+input:not([type="checkbox"]),
+select,
+textarea {
+  @apply p-2 rounded border border-neutral-300 w-full;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  @apply outline-none;
+}
+
+a {
+  @apply text-teal-500 hover:underline;
+}
+
+button {
+  @apply p-2 rounded transition-all duration-300 ease-in-out;
+}
+
+button[type="submit"] {
+  @apply bg-teal-500 text-white;
+}
+
+body {
+  @apply bg-neutral-100 text-neutral-700 font-light lg:text-sm text-xs;
+  font-family: "Poppins", sans-serif;
+}
