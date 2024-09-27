@@ -37,6 +37,22 @@ const Layout = ({ children }) => {
       .classList.add("text-teal-500");
   };
 
+  const logout = () => {
+    setTimeout(async () => {
+      await axios
+        .get(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
+          withCredentials: true,
+          credentials: "include",
+        })
+        .then((res) => {
+          navigate("/login");
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+    }, 1000);
+  };
+
   useEffect(() => {
     navActive();
     getLoginInfo();
@@ -101,7 +117,10 @@ const Layout = ({ children }) => {
             </li>
             <li className="block font-semibold">SETTING</li>
             <li>
-              <button className="flex items-center gap-2 w-full hover:text-teal-500">
+              <button
+                onClick={logout}
+                className="flex items-center gap-2 w-full hover:text-teal-500"
+              >
                 <IoLogOutOutline className="" /> <span>Logout</span>
               </button>
             </li>
