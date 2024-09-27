@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
   const logout = () => {
     setTimeout(async () => {
       await axios
-        .post(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
+        .get(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
           withCredentials: true,
           credentials: "same-origin",
         })
