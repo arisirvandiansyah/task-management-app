@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/arisirvandiansyah/task-management-app/compare/v1.1.0...v1.2.0) (2024-09-27)
+
+
+### Features
+
+* **client:** add vercel.json ([4c2578b](https://github.com/arisirvandiansyah/task-management-app/commit/4c2578b92969e68dba7f7af4c6b53cfb5b7e7ee8))
+* vercel ([70f4690](https://github.com/arisirvandiansyah/task-management-app/commit/70f4690aa295d777c2726f84f2fdf86925ea3dd4))
+
+
+### Bug Fixes
+
+* refresh token in database not deleted when logout ([64533f5](https://github.com/arisirvandiansyah/task-management-app/commit/64533f5a2c2715818dc40be83b5c1de27cf2eb23))
+
 ## 1.1.0 (2024-09-27)
 
 
