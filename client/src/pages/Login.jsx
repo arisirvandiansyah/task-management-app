@@ -80,6 +80,15 @@ const Login = () => {
               Don't have an account? <a href="/register">Register</a>
             </p>
           </div>
+          <div className="mb-3">
+            <h3 className="text-center font-semibold">Demo Account</h3>
+            <h4 className="text-center">Manager</h4>
+            <p className="text-center">Email: manager1@example.com</p>
+            <p className="text-center mb-2">Password: manager1123</p>
+            <h4 className="text-center">Employee</h4>
+            <p className="text-center">Email: employee1@example.com</p>
+            <p className="text-center">Password: employee1123</p>
+          </div>
         </div>
       </div>
     </div>
