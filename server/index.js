@@ -9,6 +9,7 @@ app.use(
   cors({
     origin: "https://task-management-app-gray.vercel.app/",
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 app.use(express.json());
