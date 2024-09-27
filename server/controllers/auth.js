@@ -6,7 +6,7 @@ exports.token = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) return res.sendStatus(401);
   try {
-    const user = await User.findOne({ tokens: { $elemMatch: { token } } });
+    const user = await User.findOne({ "tokens.token": refreshToken });
     if (!user) return res.sendStatus(403);
     const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
     const payload = {
