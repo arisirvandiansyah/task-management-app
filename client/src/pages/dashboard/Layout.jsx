@@ -107,14 +107,6 @@ const Layout = ({ children }) => {
                 Add Task
               </a>
             </li>
-            <li>
-              <a
-                href="/tasks"
-                className="text-neutral-600 hover:text-teal-500 hover:no-underline transition-all duration-300"
-              >
-                View Task
-              </a>
-            </li>
             <li className="block font-semibold">SETTING</li>
             <li>
               <button
