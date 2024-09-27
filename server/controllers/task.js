@@ -5,11 +5,13 @@ exports.getAll = async (req, res) => {
     let tasks = [];
     if (!req.user.is_manager) {
       tasks = await Task.find({ assigned_to: req.user._id }, " -__v")
+        .sort({ updatedAt: -1 })
         .populate("assigned_by")
         .populate("assigned_to")
         .exec();
     } else {
       tasks = await Task.find({ assigned_by: req.user._id }, "-__v")
+        .sort({ updatedAt: -1 })
         .populate("assigned_by")
         .populate("assigned_to")
         .exec();
