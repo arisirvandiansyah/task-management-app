@@ -15,6 +15,9 @@ app.use(express.json());
 app.use(cookieParser());
 connectDB();
 
+app.get("/", (req, res) => {
+  res.send("API Server for TASK MANAGEMENT APP");
+});
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/task", require("./routes/task"));
 app.use("/api/user", require("./routes/user"));
