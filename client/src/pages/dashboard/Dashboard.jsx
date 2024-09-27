@@ -23,7 +23,7 @@ const Dashboard = () => {
         setTasks(res.data.tasks);
       })
       .catch((err) => {
-        return;
+        console.log(err);
       });
   };
 
@@ -35,7 +35,7 @@ const Dashboard = () => {
         setShowModal(true);
       })
       .catch((err) => {
-        return;
+        console.log(err);
       });
   };
 
@@ -57,7 +57,7 @@ const Dashboard = () => {
           }, 3000);
         })
         .catch((err) => {
-          return;
+          console.log(err);
         });
       setLoading(false);
     }, 1000);
@@ -73,7 +73,7 @@ const Dashboard = () => {
               setEmployee(res.data);
             })
             .catch((err) => {
-              return;
+              console.log(err);
             });
         };
 
