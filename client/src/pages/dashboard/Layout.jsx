@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
       await axios
         .post(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
           withCredentials: true,
-          credentials: "include",
+          credentials: "same-origin",
         })
         .then((res) => {
           navigate("/login");
